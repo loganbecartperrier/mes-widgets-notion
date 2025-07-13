@@ -19,6 +19,7 @@
     text-transform: uppercase;
     display: inline-block;
     padding: 10px 20px;
+    transition: color 0.3s; /* Ajoute une petite transition douce */
   }
   /* Style quand la souris passe sur un lien */
   .navMenu a:hover {
@@ -31,32 +32,33 @@
 <body>
 
 <nav class="navMenu">
-  <a id="link1" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-house"></i> Accueil</a>
-  <a id="link2" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-inbox"></i> Boîte de réception</a>
-  <a id="link3" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-calendar-week"></i> Planning</a>
-  <a id="link4" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-briefcase"></i> Projets</a>
-  <a id="link5" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-list-check"></i> Tâches</a>
+  <a id="link1" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-book-medical"></i> Mon Journal de Suivi</a>
+  <a id="link2" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-utensils"></i> Mon Plan Alimentaire</a>
+  <a id="link3" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-carrot"></i> Fiche Recettes</a>
+  <a id="link4" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-book-open-reader"></i> Bibliothèque</a>
+  <a id="link5" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-pills"></i> Mes Compléments</a>
+  <a id="link6" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-trophy"></i> Mes Victoires</a>
 </nav>
 
 <script>
   function navigate(linkId) {
     if (linkId == "link1")
-        window.open("https://www.notion.so/Mon-Journal-de-Suivi-225409dd6f6c80e09af1c21bc0e961fe?source=copy_link", '_blank'); // Mettez le lien de votre page Accueil ici
+        window.open("https://www.notion.so/Mon-Journal-de-Suivi-225409dd6f6c80e09af1c21bc0e961fe?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MON JOURNAL DE SUIVI"
 
     else if (linkId == "link2")
-        window.open("https://www.notion.so/Mon-plan-alimentaire-1c9409dd6f6c801abe81e5042bbcc9bd?source=copy_link", '_blank'); // Mettez le lien de votre Boîte de réception ici
+        window.open("https://www.notion.so/Mon-plan-alimentaire-1c9409dd6f6c801abe81e5042bbcc9bd?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MON PLAN ALIMENTAIRE"
 
     else if (linkId == "link3")
-        window.open("https://www.notion.so/Fiche-recette-225409dd6f6c8012bb41e2c478dc08a2?source=copy_link", '_blank'); // Mettez le lien de votre Planning ici
+        window.open("https://www.notion.so/Fiche-recette-225409dd6f6c8012bb41e2c478dc08a2?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "FICHE RECETTES"
     
     else if (linkId == "link4")
-        window.open("https://www.notion.so/Biblioth-que-1f7409dd6f6c8159b4a0de322aa35100?source=copy_link", '_blank'); // Mettez le lien de vos Projets ici
+        window.open("https://www.notion.so/Biblioth-que-1f7409dd6f6c8159b4a0de322aa35100?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "BIBLIOTHÈQUE"
 
     else if (linkId == "link5")
-        window.open("https://www.notion.so/Mes-Compl-ments-225409dd6f6c80f7a367eb225a274c7d?source=copy_link", '_blank'); // Mettez le lien de vos Tâches ici
-      
-    else if (linkId =="link6")
-        winsow.open("https://www.notion.so/Mes-Victoires-Prises-de-Conscience-225409dd6f6c80ecbd57de067e33e157?source=copy_link", '_blank');
+        window.open("https://www.notion.so/Mes-Compl-ments-225409dd6f6c80f7a367eb225a274c7d?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MES COMPLÉMENTS"
+
+    else if (linkId == "link6")
+        window.open("https://www.notion.so/Mes-Victoires-Prises-de-Conscience-225409dd6f6c80ecbd57de067e33e157?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MES VICTOIRES"
   }
 </script>
 
