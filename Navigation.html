@@ -5,33 +5,49 @@
 <script src="https://kit.fontawesome.com/264104499d.js" crossorigin="anonymous"></script>
 
 <style type="text/css">
+  body {
+    /* Utilise la police de Notion pour une intégration parfaite */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
   /* Style général de la barre */
   .navMenu {
-    font-family: 'Oswald', sans-serif;
+    display: flex; /* Aligne les éléments horizontalement */
+    justify-content: center; /* Centre les liens */
+    align-items: center;
+    background-color: #2F2F2F; /* Fond gris foncé, similaire à Notion */
     padding: 8px;
-    text-align: center;
+    border-radius: 8px; /* Coins arrondis */
     margin: 7px auto;
   }
   /* Style des liens */
   .navMenu a {
-    color: #555; /* Couleur du texte */
+    color: #CCCCCC; /* Texte et icônes en gris clair */
     text-decoration: none;
     text-transform: uppercase;
-    display: inline-block;
-    padding: 10px 20px;
-    transition: color 0.3s; /* Ajoute une petite transition douce */
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 5px; /* Coins des boutons arrondis */
+    transition: background-color 0.2s, color 0.2s;
   }
   /* Style quand la souris passe sur un lien */
   .navMenu a:hover {
-    color: #000;
+    color: #FFFFFF; /* Texte devient blanc */
+    background-color: #3F3F3F; /* Fond du bouton s'éclaircit */
+  }
+  /* Style des icônes */
+  .navMenu i {
+    margin-right: 8px; /* Espace entre l'icône et le texte */
   }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <nav class="navMenu">
+  <a id="link0" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-house"></i> Accueil</a>
   <a id="link1" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-book-medical"></i> Mon Journal de Suivi</a>
   <a id="link2" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-utensils"></i> Mon Plan Alimentaire</a>
   <a id="link3" onclick="navigate(this.id)" href="#"> <i class="fa-solid fa-carrot"></i> Fiche Recettes</a>
@@ -42,23 +58,29 @@
 
 <script>
   function navigate(linkId) {
-    if (linkId == "link1")
-        window.open("https://www.notion.so/Mon-Journal-de-Suivi-225409dd6f6c80e09af1c21bc0e961fe?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MON JOURNAL DE SUIVI"
+    // La magie est ici : '_self' ouvre le lien dans la même fenêtre.
+    const target = '_self'; 
+
+    if (linkId == "link0")
+        window.open("https://www.notion.so/Suivi-de-client-1c7409dd6f6c80b086aee7b8bf2265ed?source=copy_link", target); // METTEZ ICI LE LIEN DE VOTRE PAGE "ACCUEIL"
+
+    else if (linkId == "link1")
+        window.open("https://www.notion.so/Mon-Journal-de-Suivi-225409dd6f6c80e09af1c21bc0e961fe?source=copy_link", target); // METTEZ ICI LE LIEN DE "MON JOURNAL DE SUIVI"
 
     else if (linkId == "link2")
-        window.open("https://www.notion.so/Mon-plan-alimentaire-1c9409dd6f6c801abe81e5042bbcc9bd?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MON PLAN ALIMENTAIRE"
+        window.open("https://www.notion.so/Mon-plan-alimentaire-1c9409dd6f6c801abe81e5042bbcc9bd?source=copy_link", target); // METTEZ ICI LE LIEN DE "MON PLAN ALIMENTAIRE"
 
     else if (linkId == "link3")
-        window.open("https://www.notion.so/Fiche-recette-225409dd6f6c8012bb41e2c478dc08a2?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "FICHE RECETTES"
+        window.open("https://www.notion.so/Fiche-recette-225409dd6f6c8012bb41e2c478dc08a2?source=copy_link", target); // METTEZ ICI LE LIEN DE "FICHE RECETTES"
     
     else if (linkId == "link4")
-        window.open("https://www.notion.so/Biblioth-que-1f7409dd6f6c8159b4a0de322aa35100?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "BIBLIOTHÈQUE"
+        window.open("https://www.notion.so/Biblioth-que-1f7409dd6f6c8159b4a0de322aa35100?source=copy_link", target); // METTEZ ICI LE LIEN DE "BIBLIOTHÈQUE"
 
     else if (linkId == "link5")
-        window.open("https://www.notion.so/Mes-Compl-ments-225409dd6f6c80f7a367eb225a274c7d?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MES COMPLÉMENTS"
+        window.open("https://www.notion.so/Mes-Compl-ments-225409dd6f6c80f7a367eb225a274c7d?source=copy_link", target); // METTEZ ICI LE LIEN DE "MES COMPLÉMENTS"
 
     else if (linkId == "link6")
-        window.open("https://www.notion.so/Mes-Victoires-Prises-de-Conscience-225409dd6f6c80ecbd57de067e33e157?source=copy_link", '_blank'); // METTEZ ICI LE LIEN DE "MES VICTOIRES"
+        window.open("https://www.notion.so/Mes-Victoires-Prises-de-Conscience-225409dd6f6c80ecbd57de067e33e157?source=copy_link", target); // METTEZ ICI LE LIEN DE "MES VICTOIRES"
   }
 </script>
 
