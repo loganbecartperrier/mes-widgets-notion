@@ -4,28 +4,27 @@
 <title>Accueil</title>
 <style type="text/css">
 body {
-  /* Ajout de la bordure et des espacements */
-  border: 2px solid #333; /* Bordure gris foncé */
-  border-radius: 8px; /* Coins arrondis */
-  padding: 1em 2em; /* Espace à l'intérieur de la bordure */
-
-  font-family: 'Rubik', sans-serif;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 1em 2em;
+  font-family: 'Oswald', sans-serif; /* Nouvelle police */
   background-color: transparent;
-  color: #333; /* Changé pour un gris plus lisible */
+  color: #333;
   text-align: center;
 }
 #greet {
   font-weight: 500;
   font-size: 2em;
   margin-bottom: 5px;
-  text-transform: uppercase; /* Met le texte en majuscules */
-  letter-spacing: 1px; /* Espace un peu les lettres */
+  text-transform: uppercase;
+  letter-spacing: 2px; /* J'ai un peu plus espacé les lettres */
 }
 #date {
+  font-weight: 400; /* Poids de police normal */
   font-size: 1em;
   margin-top: 10px;
   margin-bottom: 10px;
-  color: #555; /* Un gris un peu plus clair pour la date */
+  color: #555;
 }
 #time {
   font-size: 1.5em;
@@ -34,7 +33,9 @@ body {
   margin-top: 5px;
 }
 </style>
-<link href="https://fonts.googleapis.com/css?family=Rubik:500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -45,32 +46,26 @@ body {
 
 <script type="text/javascript">
 
-// Listes pour la traduction en français
 const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 const mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
-// Fonction pour ajouter un zéro devant les nombres < 10 (pour l'heure)
 function formatZero(i) {
-  if (i < 10) {
-    i = "0" + i;
-  }
+  if (i < 10) { i = "0" + i; }
   return i;
 }
 
 function miseAJour() {
   const today = new Date();
   
-  // --- Salutations ---
+  // --- Salutations (sans le prénom) ---
   const hrs = today.getHours();
-  // MODIFIEZ VOTRE NOM CI-DESSOUS
-  const name = "Logan"; 
   let greet;
   if (hrs < 12) {
-    greet = 'Bonjour ' + name;
+    greet = 'Bonjour';
   } else if (hrs >= 12 && hrs <= 17) {
-    greet = 'Bon après-midi ' + name;
+    greet = 'Bon après-midi';
   } else {
-    greet = 'Bonsoir ' + name;
+    greet = 'Bonsoir';
   }
   document.getElementById('greet').innerHTML = greet;
 
@@ -90,10 +85,7 @@ function miseAJour() {
   document.getElementById('time').innerHTML = timeStr;
 }
 
-// Lancer la fonction une première fois
 miseAJour();
-
-// Mettre à jour l'heure toutes les secondes
 setInterval(miseAJour, 1000);
   
 </script>
