@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Greetings</title>
+<title>Accueil</title>
 <style type="text/css">
-body{
+body {
   font-family: 'Rubik', sans-serif;
   background-color: transparent;
-}
-#greet{
-  font-weight: 500;
-  font-size: 4em;
   color: #d1d1d1;
+  text-align: center;
+}
+#greet {
+  font-weight: 500;
+  font-size: 2.5em; /* J'ai un peu réduit la taille pour faire de la place */
+  margin-bottom: 0px;
+}
+#date {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+#time {
+  font-size: 1.8em;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-top: 10px;
 }
 </style>
 <link href="https://fonts.googleapis.com/css?family=Rubik:500&display=swap" rel="stylesheet">
@@ -18,31 +30,62 @@ body{
 
 <body>
 
-<h1 align="center" id="greet"></h1>
+<h1 id="greet"></h1>
+<p id="date"></p>
+<p id="time"></p>
 
 <script type="text/javascript">
 
-function dispalyGreetings(today){
-  hrs = today.getHours();
-  //  MODIFIEZ VOTRE NOM CI-DESSOUS
-  name=" " 
-  if (hrs < 12)
-    greet = 'Bonjour ' + name;
-  else if (hrs >= 12 && hrs <= 17)
-    greet = 'Bon après-midi ' + name;
-  else if (hrs >= 17 && hrs <= 24)
-    greet = 'Bonsoir ' + name;
-  document.getElementById('greet').innerHTML = greet;
+// Listes pour la traduction en français
+const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+const mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+// Fonction pour ajouter un zéro devant les nombres < 10 (pour l'heure)
+function formatZero(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
 }
 
-today = new Date();
-dispalyGreetings(today);
+function miseAJour() {
+  const today = new Date();
+  
+  // --- Salutations ---
+  const hrs = today.getHours();
+  // MODIFIEZ VOTRE NOM CI-DESSOUS
+  const name = "Logan"; 
+  let greet;
+  if (hrs < 12) {
+    greet = 'Bonjour ' + name;
+  } else if (hrs >= 12 && hrs <= 17) {
+    greet = 'Bon après-midi ' + name;
+  } else {
+    greet = 'Bonsoir ' + name;
+  }
+  document.getElementById('greet').innerHTML = greet;
 
-setInterval(function(){
-    today = new Date();
-    dispalyGreetings(today);
-}, 1000);
+  // --- Affichage de la Date ---
+  const jourSemaine = jours[today.getDay()];
+  const jourMois = today.getDate();
+  const moisAnnee = mois[today.getMonth()];
+  const annee = today.getFullYear();
+  const dateStr = jourSemaine + ' ' + jourMois + ' ' + moisAnnee + ' ' + annee;
+  document.getElementById('date').innerHTML = dateStr;
 
+  // --- Affichage de l'Heure ---
+  const h = formatZero(today.getHours());
+  const m = formatZero(today.getMinutes());
+  const s = formatZero(today.getSeconds());
+  const timeStr = h + " : " + m + " : " + s;
+  document.getElementById('time').innerHTML = timeStr;
+}
+
+// Lancer la fonction une première fois
+miseAJour();
+
+// Mettre à jour l'heure toutes les secondes
+setInterval(miseAJour, 1000);
   
 </script>
 </body>
