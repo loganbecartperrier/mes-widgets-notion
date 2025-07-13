@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Greetings</title>
+<style type="text/css">
+body{
+  font-family: 'Rubik', sans-serif;
+  background-color: transparent;
+}
+#greet{
+  font-weight: 500;
+  font-size: 4em;
+  color: #d1d1d1;
+}
+</style>
+<link href="https://fonts.googleapis.com/css?family=Rubik:500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<h1 align="center" id="greet"></h1>
+
+<script type="text/javascript">
+
+function dispalyGreetings(today){
+  hrs = today.getHours();
+  //  MODIFIEZ VOTRE NOM CI-DESSOUS
+  name=" " 
+  if (hrs < 12)
+    greet = 'Bonjour ' + name;
+  else if (hrs >= 12 && hrs <= 17)
+    greet = 'Bon après-midi ' + name;
+  else if (hrs >= 17 && hrs <= 24)
+    greet = 'Bonsoir ' + name;
+  document.getElementById('greet').innerHTML = greet;
+}
+
+today = new Date();
+dispalyGreetings(today);
+
+setInterval(function(){
+    today = new Date();
+    dispalyGreetings(today);
+}, 1000);
+
+</script>
+</body>
+</html>
