@@ -5,21 +5,22 @@
 <style type="text/css">
 body {
   /* Changement de la couleur de la bordure */
-  border: 2px solid #888; /* Bordure gris moyen */
+  border: none; /* Bordure gris moyen */
   border-radius: 8px;
   padding: 1em 2em;
   font-family: 'Oswald', sans-serif;
-  background-color: transparent;
+  background-color: #191919;
   /* Changement de la couleur principale du texte */
-  color: #CCC; /* Texte principal en gris très clair */
+  color: #E0E0E0; /* Texte principal en gris très clair */
   text-align: center;
 }
 #greet {
   font-weight: 500;
-  font-size: 2em;
+  font-size: 2.5em;
   margin-bottom: 5px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: #FFFFFF;
 }
 #date {
   font-weight: 400;
@@ -27,7 +28,7 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
   /* Changement de la couleur de la date */
-  color: #999; /* Date en gris un peu plus foncé pour le contraste */
+  color: #9E9E9E; /* Date en gris un peu plus foncé pour le contraste */
 }
 #time {
   font-size: 1.5em;
@@ -81,7 +82,7 @@ function miseAJour() {
   const h = formatZero(today.getHours());
   const m = formatZero(today.getMinutes());
   const s = formatZero(today.getSeconds());
-  const timeStr = h + " : " + m + " : " + s;
+  const timeStr = `${h} : ${m} : ${s}`;
   document.getElementById('time').innerHTML = timeStr;
 }
 
