@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Accueil QG Atama + Météo</title>
+<title>Accueil QG Atama + Météo + Citation</title>
 <meta charset="UTF-8">
 <style type="text/css">
 body {
@@ -19,6 +19,14 @@ body {
   text-align: center;
 }
 
+/* Conteneur principal pour gérer l'espacement */
+.widget-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px; /* Espace entre les éléments */
+}
+
 #greet {
   font-weight: 500;
   font-size: 2.5em;
@@ -31,8 +39,7 @@ body {
 #date {
   font-weight: 400;
   font-size: 1.1em;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin: 0;
   color: #9E9E9E;
   text-transform: capitalize;
 }
@@ -41,25 +48,50 @@ body {
   font-size: 2em;
   font-weight: 500;
   letter-spacing: 3px;
-  margin-top: 5px;
-  margin-bottom: 20px; /* Espace avant la météo */
+  margin: 5px 0 15px 0;
   color: #E0E0E0;
 }
 
-/* --- Style du bloc Météo --- */
+/* --- Style Météo --- */
 #weather {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: rgba(255, 255, 255, 0.05); /* Fond très léger */
-  padding: 8px 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 6px 15px;
   border-radius: 20px;
-  font-size: 1em;
+  font-size: 0.9em;
   color: #CCC;
-  font-weight: 400;
-  opacity: 0; /* Caché au début le temps de charger */
+  margin-bottom: 20px;
+  opacity: 0;
   animation: fadeIn 1s forwards;
+}
+
+/* --- Style Citation --- */
+#quote-box {
+  max-width: 80%; /* Pour éviter que ça soit trop large */
+  margin-top: 10px;
+  padding: 0 20px;
+  opacity: 0;
+  animation: fadeIn 1.5s forwards; /* Apparition un peu plus lente */
+}
+
+#quote-text {
+  font-size: 1em;
+  font-style: italic;
+  color: #BBB; /* Gris clair */
+  line-height: 1.4;
+}
+
+#quote-author {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #666; /* Auteur plus discret */
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 @keyframes fadeIn {
@@ -68,37 +100,66 @@ body {
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div>
+<div class="widget-container">
   <h1 id="greet">Chargement...</h1>
   <p id="date"></p>
   <p id="time"></p>
   
   <div id="weather">Chargement météo...</div>
+
+  <div id="quote-box">
+    <span id="quote-text"></span>
+    <span id="quote-author"></span>
+  </div>
 </div>
 
 <script type="text/javascript">
 
-// 1. Configuration Météo (Bordeaux)
-// Tu peux changer latitude/longitude ici pour une autre ville
+// --- CONFIGURATION MÉTÉO (Bordeaux) ---
 const LAT = 44.8378;
 const LON = -0.5792;
 const API_URL = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true`;
 
+// --- BANQUE DE CITATIONS ---
+// Tu peux ajouter tes propres phrases ici
+const citations = [
+  { text: "La créativité, c'est l'intelligence qui s'amuse", author: "Albert Einstein" },
+  { text: "Ils ne savaient pas que c'était impossible, alors ils l'ont fait", author: "Mark Twain" },
+  { text: "Le meilleur moyen de prévoir le futur, c'est de le créer", author: "Peter Drucker" },
+  { text: "L'action est la clé fondamentale de tout succès", author: "Pablo Picasso" },
+  { text: "Fais de ta vie un rêve, et d'un rêve, une réalité", author: "Antoine de Saint-Exupéry" },
+  { text: "Le chaos est une échelle", author: "Game of Thrones" },
+  { text: "La simplicité est la sophistication suprême", author: "Léonard de Vinci" },
+  { text: "Tout ce que vous pouvez imaginer est réel", author: "Pablo Picasso" },
+  { text: "Soyez le changement que vous voulez voir dans le monde", author: "Gandhi" },
+  { text: "La discipline est mère du succès", author: "Eschyle" },
+  { text: "Commencez où vous êtes. Utilisez ce que vous avez. Faites ce que vous pouvez", author: "Arthur Ashe" },
+  { text: "Il est des moments où tes rêves les plus fous semblent réalisables à condition d'oser les tenter", author: "Bernard Werber" },
+  { text: "l ne faut pas penser à l'objectif à atteindre, il faut seulement penser à avancer. C'est ainsi, à force d'avancer, qu'on atteint ou qu'on double ses objectifs sans même s'en apercevoir", author: "Bernard Werber" },
+  { text: "Entre l'éclat de nos rêves et la lumière de la réalité, se trouve l'ombre de nos doutes. Naviguons avec espoirs, car même dans l'obscurité, une étincelle peut illuminer tout un voyage", author: "Victor Hugo" },
+  { text: "On a toujours le choix entre ce que l'on fait et ce que l'on ne fait pas", author: "Jean-paul Sartre" }
+];
+
 const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 const mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
-function formatZero(i) {
-  return i < 10 ? "0" + i : i;
+function formatZero(i) { return i < 10 ? "0" + i : i; }
+
+// --- LOGIQUE CITATION ALEATOIRE ---
+function updateQuote() {
+  const randomIndex = Math.floor(Math.random() * citations.length);
+  const quote = citations[randomIndex];
+  document.getElementById('quote-text').innerText = `“${quote.text}”`;
+  document.getElementById('quote-author').innerText = quote.author;
 }
 
-// Fonction pour interpréter les codes météo WMO
+// --- LOGIQUE METEO ---
 function getWeatherDescription(code) {
-  // Codes standard WMO
   if (code === 0) return { text: "Ciel dégagé", icon: "☀️" };
   if (code >= 1 && code <= 3) return { text: "Nuageux", icon: "☁️" };
   if (code >= 45 && code <= 48) return { text: "Brouillard", icon: "🌫️" };
@@ -115,32 +176,25 @@ async function updateWeather() {
     const data = await response.json();
     const temp = Math.round(data.current_weather.temperature);
     const weatherInfo = getWeatherDescription(data.current_weather.weathercode);
-    
-    document.getElementById('weather').innerHTML = 
-      `${weatherInfo.icon} Bordeaux : ${temp}°C • ${weatherInfo.text}`;
+    document.getElementById('weather').innerHTML = `${weatherInfo.icon} Bordeaux : ${temp}°C • ${weatherInfo.text}`;
   } catch (error) {
-    console.error("Erreur météo:", error);
-    document.getElementById('weather').innerHTML = "Météo indisponible";
+    document.getElementById('weather').innerHTML = "Météo hors ligne";
   }
 }
 
+// --- LOGIQUE HORLOGE ---
 function miseAJour() {
   const today = new Date();
-  
   const hrs = today.getHours();
-  let greet;
-  if (hrs < 12) greet = 'Bonjour';
-  else if (hrs >= 12 && hrs <= 17) greet = 'Bon après-midi';
-  else greet = 'Bonsoir';
   
+  let greet = (hrs < 12) ? 'Bonjour' : (hrs >= 12 && hrs <= 17) ? 'Bon après-midi' : 'Bonsoir';
   document.getElementById('greet').innerHTML = greet;
 
   const jourSemaine = jours[today.getDay()];
   const jourMois = today.getDate();
   const moisAnnee = mois[today.getMonth()];
   const annee = today.getFullYear();
-  const dateStr = `${jourSemaine} ${jourMois} ${moisAnnee} ${annee}`;
-  document.getElementById('date').innerHTML = dateStr;
+  document.getElementById('date').innerHTML = `${jourSemaine} ${jourMois} ${moisAnnee} ${annee}`;
 
   const h = formatZero(today.getHours());
   const m = formatZero(today.getMinutes());
@@ -148,11 +202,11 @@ function miseAJour() {
   document.getElementById('time').innerHTML = `${h} : ${m} : ${s}`;
 }
 
-// Lancement
+// --- LANCEMENT ---
 miseAJour();
+updateQuote(); // Charge une citation aléatoire au démarrage
 setInterval(miseAJour, 1000);
-updateWeather(); // Appel météo au chargement
-// Mise à jour météo toutes les 30 minutes (pour ne pas surcharger)
+updateWeather();
 setInterval(updateWeather, 1800000); 
 
 </script>
