@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Accueil</title>
+<title>Accueil QG Atama + Météo</title>
+<meta charset="UTF-8">
 <style type="text/css">
 body {
-  /* Changement de la couleur de la bordure */
-  border: none; /* Bordure gris moyen */
-  border-radius: 8px;
-  padding: 1em 2em;
+  /* Fond Notion Dark Mode */
+  background-color: #191919; 
+  border: none; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+  margin: 0;
   font-family: 'Oswald', sans-serif;
-  background-color: #191919;
-  /* Changement de la couleur principale du texte */
-  color: #E0E0E0; /* Texte principal en gris très clair */
+  color: #E0E0E0;
   text-align: center;
 }
+
 #greet {
   font-weight: 500;
   font-size: 2.5em;
-  margin: 0px;
+  margin: 0;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #FFFFFF;
 }
+
 #date {
   font-weight: 400;
-  font-size: 1em;
+  font-size: 1.1em;
   margin-top: 10px;
   margin-bottom: 5px;
-  /* Changement de la couleur de la date */
-  color: #9E9E9E; /* Date en gris un peu plus foncé pour le contraste */
+  color: #9E9E9E;
   text-transform: capitalize;
 }
+
 #time {
   font-size: 2em;
   font-weight: 500;
   letter-spacing: 3px;
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Espace avant la météo */
   color: #E0E0E0;
 }
+
+/* --- Style du bloc Météo --- */
 #weather {
   display: inline-flex;
   align-items: center;
@@ -53,7 +61,8 @@ body {
   opacity: 0; /* Caché au début le temps de charger */
   animation: fadeIn 1s forwards;
 }
-  @keyframes fadeIn {
+
+@keyframes fadeIn {
   to { opacity: 1; }
 }
 </style>
@@ -64,13 +73,19 @@ body {
 
 <body>
 
-<h1 id="greet"></h1>
-<p id="date"></p>
-<p id="time"></p>
+<div>
+  <h1 id="greet">Chargement...</h1>
+  <p id="date"></p>
+  <p id="time"></p>
+  
+  <div id="weather">Chargement météo...</div>
+</div>
 
 <script type="text/javascript">
 
-  const LAT = 44.8378;
+// 1. Configuration Météo (Bordeaux)
+// Tu peux changer latitude/longitude ici pour une autre ville
+const LAT = 44.8378;
 const LON = -0.5792;
 const API_URL = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true`;
 
@@ -81,7 +96,8 @@ function formatZero(i) {
   return i < 10 ? "0" + i : i;
 }
 
-  function getWeatherDescription(code) {
+// Fonction pour interpréter les codes météo WMO
+function getWeatherDescription(code) {
   // Codes standard WMO
   if (code === 0) return { text: "Ciel dégagé", icon: "☀️" };
   if (code >= 1 && code <= 3) return { text: "Nuageux", icon: "☁️" };
@@ -106,7 +122,9 @@ async function updateWeather() {
     console.error("Erreur météo:", error);
     document.getElementById('weather').innerHTML = "Météo indisponible";
   }
-}function miseAJour() {
+}
+
+function miseAJour() {
   const today = new Date();
   
   const hrs = today.getHours();
