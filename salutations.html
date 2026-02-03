@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Accueil QG Atama + Météo + Citation</title>
+<title>Accueil QG Atama + Météo</title>
 <meta charset="UTF-8">
 <style type="text/css">
 body {
@@ -68,32 +68,6 @@ body {
   animation: fadeIn 1s forwards;
 }
 
-/* --- Style Citation --- */
-#quote-box {
-  max-width: 80%; /* Pour éviter que ça soit trop large */
-  margin-top: 10px;
-  padding: 0 20px;
-  opacity: 0;
-  animation: fadeIn 1.5s forwards; /* Apparition un peu plus lente */
-}
-
-#quote-text {
-  font-size: 1em;
-  font-style: italic;
-  color: #BBB; /* Gris clair */
-  line-height: 1.4;
-}
-
-#quote-author {
-  display: block;
-  margin-top: 5px;
-  font-size: 0.8em;
-  font-weight: 400;
-  color: #666; /* Auteur plus discret */
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
 @keyframes fadeIn {
   to { opacity: 1; }
 }
@@ -109,13 +83,8 @@ body {
   <h1 id="greet">Chargement...</h1>
   <p id="date"></p>
   <p id="time"></p>
-  
+   
   <div id="weather">Chargement météo...</div>
-
-  <div id="quote-box">
-    <span id="quote-text"></span>
-    <span id="quote-author"></span>
-  </div>
 </div>
 
 <script type="text/javascript">
@@ -125,38 +94,10 @@ const LAT = 44.8378;
 const LON = -0.5792;
 const API_URL = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true`;
 
-// --- BANQUE DE CITATIONS ---
-// Tu peux ajouter tes propres phrases ici
-const citations = [
-  { text: "La créativité, c'est l'intelligence qui s'amuse", author: "Albert Einstein" },
-  { text: "Ils ne savaient pas que c'était impossible, alors ils l'ont fait", author: "Mark Twain" },
-  { text: "Le meilleur moyen de prévoir le futur, c'est de le créer", author: "Peter Drucker" },
-  { text: "L'action est la clé fondamentale de tout succès", author: "Pablo Picasso" },
-  { text: "Fais de ta vie un rêve, et d'un rêve, une réalité", author: "Antoine de Saint-Exupéry" },
-  { text: "Le chaos est une échelle", author: "Game of Thrones" },
-  { text: "La simplicité est la sophistication suprême", author: "Léonard de Vinci" },
-  { text: "Tout ce que vous pouvez imaginer est réel", author: "Pablo Picasso" },
-  { text: "Soyez le changement que vous voulez voir dans le monde", author: "Gandhi" },
-  { text: "La discipline est mère du succès", author: "Eschyle" },
-  { text: "Commencez où vous êtes. Utilisez ce que vous avez. Faites ce que vous pouvez", author: "Arthur Ashe" },
-  { text: "Il est des moments où tes rêves les plus fous semblent réalisables à condition d'oser les tenter", author: "Bernard Werber" },
-  { text: "Il ne faut pas penser à l'objectif à atteindre, il faut seulement penser à avancer. C'est ainsi, à force d'avancer, qu'on atteint ou qu'on double ses objectifs sans même s'en apercevoir", author: "Bernard Werber" },
-  { text: "Entre l'éclat de nos rêves et la lumière de la réalité, se trouve l'ombre de nos doutes. Naviguons avec espoirs, car même dans l'obscurité, une étincelle peut illuminer tout un voyage", author: "Victor Hugo" },
-  { text: "On a toujours le choix entre ce que l'on fait et ce que l'on ne fait pas", author: "Jean-paul Sartre" }
-];
-
 const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 const mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 
 function formatZero(i) { return i < 10 ? "0" + i : i; }
-
-// --- LOGIQUE CITATION ALEATOIRE ---
-function updateQuote() {
-  const randomIndex = Math.floor(Math.random() * citations.length);
-  const quote = citations[randomIndex];
-  document.getElementById('quote-text').innerText = `“${quote.text}”`;
-  document.getElementById('quote-author').innerText = quote.author;
-}
 
 // --- LOGIQUE METEO ---
 function getWeatherDescription(code) {
@@ -186,7 +127,7 @@ async function updateWeather() {
 function miseAJour() {
   const today = new Date();
   const hrs = today.getHours();
-  
+   
   let greet = (hrs < 12) ? 'Bonjour' : (hrs >= 12 && hrs <= 17) ? 'Bon après-midi' : 'Bonsoir';
   document.getElementById('greet').innerHTML = greet;
 
@@ -204,7 +145,6 @@ function miseAJour() {
 
 // --- LANCEMENT ---
 miseAJour();
-updateQuote(); // Charge une citation aléatoire au démarrage
 setInterval(miseAJour, 1000);
 updateWeather();
 setInterval(updateWeather, 1800000); 
